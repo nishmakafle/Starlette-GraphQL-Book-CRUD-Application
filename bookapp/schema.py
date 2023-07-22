@@ -32,3 +32,12 @@ class CategoryDetail:
     id:strawberry.ID
     title:str
     book:Book
+
+@strawberry.type
+class BookFilterByTag:
+    id:strawberry.ID
+    name:str
+    author:str
+    description:str
+    category:Category
+    quantity:int
