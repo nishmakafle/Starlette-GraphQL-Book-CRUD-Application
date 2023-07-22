@@ -5,7 +5,7 @@ from sqlalchemy import (Column, DateTime, ForeignKey, Integer, String, Table,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Relationship, sessionmaker
 
-from models import Base, engine
+from models import Base, engine, TimeStampModel
 
 
 
@@ -19,13 +19,6 @@ from models import Base, engine
 # for table_name in table_names:
 #     print(table_name)
 
-
-
-class TimeStampModel(Base):
-    __abstract__ = True
-
-    created_at = Column(DateTime, default=datetime.utcnow(), nullable=True)
-    updated_at = Column(DateTime, onupdate=datetime.utcnow(), nullable=True)
 
 class CategoryDB(TimeStampModel):
     __tablename__ = "category"
@@ -53,6 +46,9 @@ class BookDB(TimeStampModel):
     category = Relationship("CategoryDB", back_populates="book")
     quantity = Column(Integer, default=1)
     tag = Relationship("Tag", secondary=book_tags_association, back_populates="book")
+
+    def __repr__(self):
+        return self.name
 
 
 class Tag(TimeStampModel):

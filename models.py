@@ -1,6 +1,8 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Column, DateTime
 from sqlalchemy.orm import Relationship, sessionmaker
+from datetime import datetime
+
 
 Base = declarative_base()
 
@@ -20,5 +22,13 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
+class TimeStampModel(Base):
+    __abstract__ = True
+
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=True)
+    updated_at = Column(DateTime, onupdate=datetime.utcnow(), nullable=True)
+
+from bookapp.models import *
+from userapp.models import *
 
 Base.metadata.create_all(engine)
