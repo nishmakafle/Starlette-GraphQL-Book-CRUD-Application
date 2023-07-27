@@ -12,7 +12,7 @@ username = "postgres"
 password = "postgres"
 host = "127.0.0.1"
 port = 5432
-db_name = "bookdb"
+db_name = "testdb"
 
 DATABASE_URL = f'postgresql://{username}:{password}@{host}:{port}/{db_name}'
 engine = create_engine(DATABASE_URL)
