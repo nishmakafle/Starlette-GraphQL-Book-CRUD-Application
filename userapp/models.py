@@ -15,9 +15,9 @@ class User(TimeStampModel):
     username = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
     email = Column(String, nullable=False)
+    profile = Relationship("UserProfile", uselist=False, back_populates="user")
 
-    def __repr__(self):
-        return username
+    
 
     
 
@@ -31,7 +31,11 @@ class UserProfile(TimeStampModel):
     image = Column(String, nullable=True)
     phone_number = Column(String, nullable=True)
     dob = Column(String)
+    user_id = Column(Integer, ForeignKey('user.id'), unique=True, nullable=False)
+    user = Relationship("User", back_populates="profile")
+
+
 
     def __repr__(self):
-        return self.firstname
+        return f"{self.firstname} + {self.lastname}"
     
